@@ -15,9 +15,9 @@ export function getImagesByQuery(query) {
   return axios
   .get(BASE_URL, { params })
   .then(res => {
-    if(!res.data.hits || res.data.hits.length === 0) {
-      throw new Error()
-    }
-    return res
+    return res.data.hits
   })
+  .catch(err => {
+    throw err;
+  });
 }

@@ -23,12 +23,21 @@ function searchImg(event) {
   }
 
   clearGallery();
-  
+
   showLoader()
 
   getImagesByQuery(searchElem)
     .then(res => {
-      createGallery(res.data.hits);
+      if (res.length === 0) {
+        iziToast.show({
+          message: 'Sorry, there are no images matching your search query. Please try again!',
+          color: 'red',
+          position: 'topRight',
+        });
+        return;
+      }
+
+      createGallery(res);
     })
     .catch(() => {
       iziToast.show({
